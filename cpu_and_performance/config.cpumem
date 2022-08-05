@@ -1,0 +1,39 @@
+# Full path to the System Under Test (or Java Main Class name)
+executable:${TEXTTEST_ROOT}/cpu_and_memory.py
+
+# Naming scheme to use for files for stdin,stdout and stderr
+filename_convention_scheme:standard
+
+# Expanded name to use for application
+full_name:CPU and Memory
+
+home_operating_system:posix
+
+[run_dependent_text]
+stdout:Wallclock time{WORD -2}{REPLACE <time>}
+stdout:peak memory{WORD 1}{REPLACE <memory>}
+[end]
+
+performance_test_machine:any
+
+[performance_test_minimum]
+cputime:1
+
+[performance_variation_%]
+cputime:15
+dbload:20
+
+[performance_logfile_extractor]
+memory:(.*) MB of RAM was the peak memory
+dbload:Wallclock time loading from the database: 
+
+[batch_result_repository]
+continuous:$TEXTTEST_HOME/ex7_batch/repo
+
+[historical_report_location]
+continuous:$TEXTTEST_HOME/ex7_batch/html
+
+[historical_report_resources]
+continuous:performance
+continuous:memory
+continuous:dbload
